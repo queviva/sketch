@@ -8,10 +8,15 @@
   <script src="sketch.js"></script>
   <style id="sketchStyles">
   
+    :root {
+        --tshirtcolor: hsla(240,40%,70%,1.0);
+    }
+    
     body {
         font-family: 'Luckiest Guy';
         font-size: 30px;
         color: #004;
+        xxxcolor: var(--tshirtcolor);
     }
     
     #holder {
@@ -49,7 +54,7 @@
 <body>
  <div id="holder">
   <div> scroll for more </div>
-  <svg><g id="tshirt" transform="scale(2.5)"></g></svg>
+  <svg><g id="tshirt" transform="scale(2.5)" XXXstroke-linecap="round"></g></svg>
   <br>
   <img src="tshirt.png">
   <hr>
@@ -186,20 +191,47 @@
         ts.innerHTML = '';
         
         ts.appendChild(rTshirt.path(
-            'M 3.691 8.075 L 47.363 8.352 C 57.088 10.739 65.614 10.615 76.498 8.188 L 104.799 8.352 L 107.31 6.918 L 124.166 4.929 L 121.996 42.116 L 98.317 50.183 L 100.467 106.399 C 87.375 109.83 73.918 115.322 60.066 118.119 C 49.858 115.385 36.732 110.996 28.309 105.907 L 30.313 51.183 L 3.593 44.783 L 3.691 8.075 Z',
+            'M 3.691 8.075 L 47.363 8.352 C 57.088 10.739 65.614 10.615 76.498 8.188 L 104.799 8.352 L 107.31 6.918 L 124.166 4.929 L 121.996 42.116 L 98.317 50.183 L 100.467 106.399 C 87.375 109.83 73.918 115.322 60.066 118.119 C 49.858 115.385 36.732 110.996 28.309 105.907 L 30.313 51.183 L 3.593 44.783',
             {
-                fill: '#003',
+                fill: '#88f',
                 fillStyle: 'solid',
+                fill: 'var(--tshirtcolor)',
                 stroke: 'none'
             }
         ));
         
+        let tPath =  'M 7.387 11.173 L 48.136 11.438 C 59.612 13.586 69.266 13.606 77.037 11.438 L 104.269 11.438 L 108.714 9.002 L 119.799 8.168 L 118.874 40.034 L 95.259 47.338 L 97.155 103.532 C 86.757 108.705 74.201 111.694 59.458 112.47 L 33.395 103.532 L 33.346 49.502 L 8.414 43.389';
+        
         ts.appendChild(rTshirt.path(
-            'M 7.387 11.173 L 48.136 11.438 C 59.612 13.586 69.266 13.606 77.037 11.438 L 104.269 11.438 L 108.714 9.002 L 119.799 8.168 L 118.874 40.034 L 95.259 47.338 L 97.155 103.532 C 86.757 108.705 74.201 111.694 59.458 112.47 L 33.395 103.532 L 33.346 49.502 L 8.414 43.389 L 7.387 11.173 Z ',
+            tPath,
             {
-                fillStyle: 'solid',
-                //fillWeight: 3,
                 fill: '#03c',
+                fillStyle: 'solid',
+                //fillStyle: 'hachure',
+                //fillWeight: 3,
+                //hachureAngle: -60,
+                roughness: 2,
+                stroke: 'none'//'rgba(0,0,0,0.7)'
+            }
+        ));
+        
+        ts.appendChild(rTshirt.path(
+            tPath,
+            {
+                fill: 'rgba(200,200,200,0.5)',
+                fillStyle: 'zigzag',
+                fillWeight: 0.2,
+                hachureGap: 10,
+                hachureAngle: -55,
+                roughness: 4,
+                stroke: 'none'
+            }
+        ));
+                
+        ts.appendChild(rTshirt.path(
+            tPath +' Z',
+            {
+                fill: 'none',
                 stroke: 'rgba(0,0,0,0.7)'
             }
         ));
