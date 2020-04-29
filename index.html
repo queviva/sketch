@@ -63,7 +63,7 @@
   <br>
   <img src="hooded.png">
   <hr>
-  <div style="color:#a41;"> dress to impress </div>
+  <div style="color:#a41;"> drEsS to iMpreSs </div>
   <br>
   <svg><g id="jacket" transform="scale(2.6)"></g></svg>
   <br>
@@ -202,22 +202,17 @@
         
         let tPath =  'M 7.387 11.173 L 48.136 11.438 C 59.612 13.586 69.266 13.606 77.037 11.438 L 104.269 11.438 L 108.714 9.002 L 119.799 8.168 L 118.874 40.034 L 95.259 47.338 L 97.155 103.532 C 86.757 108.705 74.201 111.694 59.458 112.47 L 33.395 103.532 L 33.346 49.502 L 8.414 43.389';
         
-        ts.appendChild(rTshirt.path(
-            tPath,
-            {
-                fill: '#03c',
+        ts.appendChild(rTshirt.path(tPath, {
+                fill: 'hsla(240,70%,40%,1)',
                 fillStyle: 'solid',
                 //fillStyle: 'hachure',
                 //fillWeight: 3,
                 //hachureAngle: -60,
-                roughness: 2,
+                roughness: 1,
                 stroke: 'none'//'rgba(0,0,0,0.7)'
-            }
-        ));
+        }));
         
-        ts.appendChild(rTshirt.path(
-            tPath,
-            {
+        ts.appendChild(rTshirt.path(tPath, {
                 fill: 'rgba(200,200,200,0.5)',
                 fillStyle: 'zigzag',
                 fillWeight: 0.2,
@@ -225,29 +220,29 @@
                 hachureAngle: -55,
                 roughness: 4,
                 stroke: 'none'
-            }
-        ));
+        }));
                 
-        ts.appendChild(rTshirt.path(
-            tPath +' Z',
-            {
+        ts.appendChild(rTshirt.path(tPath +' Z', {
                 fill: 'none',
                 stroke: 'rgba(0,0,0,0.7)'
-            }
-        ));
+        }));
         
-        ts.appendChild(rTshirt.path(
-            'M 49.67 13.743 C 59.085 16.575 69.07 16.229 76.341 14.861 C 70.131 25.911 61.265 27.079 49.67 13.743 Z M 17.523 15.198 L 29.453 43.582 L 11.901 25.208 L 30.275 45.914 L 33.1 47.484 L 17.523 15.198 Z M 108.714 8.96 L 104.298 11.438 L 106.488 11.438 L 95.337 47.484 L 108.714 8.96 Z M 35.588 57.195 C 53.457 85.071 70.351 96.21 86.171 90.512 C 72.112 101.835 55.263 90.741 35.588 57.195 Z',
-            {
+        let shadPath = 'M 49.67 13.743 C 59.085 16.575 69.07 16.229 76.341 14.861 C 70.131 25.911 61.265 27.079 49.67 13.743 Z M 17.523 15.198 L 29.453 43.582 L 11.901 25.208 L 30.275 45.914 L 33.1 47.484 L 17.523 15.198 Z M 108.714 8.96 L 104.298 11.438 L 106.488 11.438 L 95.337 47.484 L 108.714 8.96 Z M 35.588 57.195 C 53.457 85.071 70.351 96.21 86.171 90.512 C 72.112 101.835 55.263 90.741 35.588 57.195 Z';
+        
+        ts.appendChild(rTshirt.path(shadPath, {
                 fillStyle: 'solid',
                 fill: 'rgba(0,0,0,0.4)',
-                //stroke: 'none',
+                stroke: 'none',
+                roughness: 0.2
+                
+        }));
+        
+        ts.appendChild(rTshirt.path(shadPath, {
+                fillStyle: 'none',
                 stroke: '#012',
                 strokeWidth: 0.3,
                 roughness: 1.1
-                
-            }
-        ));
+        }));
         
     };
     
