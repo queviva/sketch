@@ -4,19 +4,21 @@
   <title>sketches</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link id="luckiestFont" href="https://fonts.googleapis.com/css?family=Luckiest+Guy" rel="stylesheet">
-  
   <script src="sketch.js"></script>
   <style id="sketchStyles">
   
     :root {
-        --tshirtcolor: hsla(240,40%,70%,1.0);
+        --tco: 240;
+        --tshirtoutline: hsla(var(--tco),90%,80%,1.0);
+        --tshirtcolor: hsla(var(--tco),90%,45%,1.0);
+        --tshirtstroke: hsla(var(--tco),80%,30%,0.8);
+        --thumbH: 20px;
     }
     
     body {
         font-family: 'Luckiest Guy';
         font-size: 30px;
         color: #004;
-        xxxcolor: var(--tshirtcolor);
     }
     
     #holder {
@@ -48,22 +50,55 @@
     }
     
     
+input[type=range] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    display: inline-block;
+    margin: 0;
+    height: var(--thumbH);
+    width: 300px;
+    border-radius: calc(var(--thumbH) / 2);
+    background-color: var(--tshirtcolor);
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    opacity: 1.7;
+    height: calc(var(--thumbH));
+    margin-bottom: 0px;
+    width: var(--thumbH);
+    border: 1px;
+    border-radius: calc(var(--thumbH) / 2);
+    background-color: #fff;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+    
   </style>
 </head>
 
 <body>
  <div id="holder">
-  <div> scroll for more </div>
-  <svg><g id="tshirt" transform="scale(2.5)" XXXstroke-linecap="round"></g></svg>
+  <div style="color:var(--tshirtcolor)"> scroll for more </div>
+  <svg id="tSVG"><g id="tshirt" transform="scale(2.5)" XXXstroke-linecap="round"></g></svg>
+  <br>
+  <input id="colorSlider" value=240 min=0 max=360 type="range">
+  <br>
+  <input id="speedSlider" value=17 min=0 max=20 type="range">
+  <br>
+  <input id="sketchSlider" value="0.75" min=0 max=8 step=0.25 type="range">
+  <br>
   <br>
   <img src="tshirt.png">
   <hr>
-  <div style="color:#a30;"> click to toggle </div>
+  <div style="color:#a30;"> </div>
   <svg><g id="hooded" transform="scale(2.5)"></g></svg>
   <br>
   <img src="hooded.png">
   <hr>
-  <div style="color:#a41;"> drEsS to iMpreSs </div>
+  <div style="color:#a41;"> </div>
   <br>
   <svg><g id="jacket" transform="scale(2.6)"></g></svg>
   <br>
@@ -103,21 +138,52 @@
   
 // pizzaface - april MMXX
 
-(() => {
+new (function () {
 
-    document.addEventListener('mousedown', e => e.preventDefault());
-    
+    // vars {
     const hd = document.getElementById('hooded');
     const ts = document.getElementById('tshirt');
     const jk = document.getElementById('jacket');
-    
+
     const rHooded = sketch.svg(hd);
     const rTshirt = sketch.svg(ts);
     const rJacket = sketch.svg(jk);
-    
+
     let isAnimating = true;
+    let pause = 10;
+    let rough = 1;
+    //}
     
-    // hooded sweatshirt
+    const colorSlider = document.getElementById('colorSlider');
+    colorSlider.addEventListener('input', e => {
+        document.documentElement.style.setProperty('--tco', colorSlider.value);
+    });
+    
+    const speedSlider = document.getElementById('speedSlider');
+    speedSlider.addEventListener('input', e => {
+    
+        if (parseInt(speedSlider.value, 10) < 0.1) {
+            cancelAnimationFrame(animate);
+            isAnimating = false;
+        }
+        else {
+            if (!isAnimating) {
+                isAnimating = true;
+                animate();
+            }
+            pause = parseInt(speedSlider.value, 10);
+        }
+    
+    });
+    
+    const sketchSlider = document.getElementById('sketchSlider');
+    sketchSlider.addEventListener('input', e => {
+        rough = parseFloat(sketchSlider.value);
+        if(!isAnimating){
+            animate();
+        }
+    });
+    
     const drawHooded = () => {
         
         hd.innerHTML = '';
@@ -185,68 +251,67 @@
         
     };
 
-    // t-shirt
     const drawTshirt = () => {
         
         ts.innerHTML = '';
         
+        // outline
         ts.appendChild(rTshirt.path(
             'M 3.691 8.075 L 47.363 8.352 C 57.088 10.739 65.614 10.615 76.498 8.188 L 104.799 8.352 L 107.31 6.918 L 124.166 4.929 L 121.996 42.116 L 98.317 50.183 L 100.467 106.399 C 87.375 109.83 73.918 115.322 60.066 118.119 C 49.858 115.385 36.732 110.996 28.309 105.907 L 30.313 51.183 L 3.593 44.783',
             {
-                fill: '#88f',
                 fillStyle: 'solid',
-                fill: 'var(--tshirtcolor)',
+                fill: 'var(--tshirtoutline)',
+                roughness: 1 * rough,
                 stroke: 'none'
             }
         ));
         
+        // inside t-shirt
         let tPath =  'M 7.387 11.173 L 48.136 11.438 C 59.612 13.586 69.266 13.606 77.037 11.438 L 104.269 11.438 L 108.714 9.002 L 119.799 8.168 L 118.874 40.034 L 95.259 47.338 L 97.155 103.532 C 86.757 108.705 74.201 111.694 59.458 112.47 L 33.395 103.532 L 33.346 49.502 L 8.414 43.389';
         
         ts.appendChild(rTshirt.path(tPath, {
-                fill: 'hsla(240,70%,40%,1)',
+                fill: 'var(--tshirtcolor)',
                 fillStyle: 'solid',
-                //fillStyle: 'hachure',
-                //fillWeight: 3,
-                //hachureAngle: -60,
-                roughness: 1,
-                stroke: 'none'//'rgba(0,0,0,0.7)'
+                roughness: 1 * rough,
+                stroke: 'none'
         }));
         
+        // scratches on shirt
         ts.appendChild(rTshirt.path(tPath, {
                 fill: 'rgba(200,200,200,0.5)',
                 fillStyle: 'zigzag',
                 fillWeight: 0.2,
                 hachureGap: 10,
                 hachureAngle: -55,
-                roughness: 4,
+                roughness: 4 * rough,
                 stroke: 'none'
         }));
                 
         ts.appendChild(rTshirt.path(tPath +' Z', {
                 fill: 'none',
-                stroke: 'rgba(0,0,0,0.7)'
+                stroke: 'var(--tshirtstroke)',
+                roughness: 1 * rough
         }));
         
         let shadPath = 'M 49.67 13.743 C 59.085 16.575 69.07 16.229 76.341 14.861 C 70.131 25.911 61.265 27.079 49.67 13.743 Z M 17.523 15.198 L 29.453 43.582 L 11.901 25.208 L 30.275 45.914 L 33.1 47.484 L 17.523 15.198 Z M 108.714 8.96 L 104.298 11.438 L 106.488 11.438 L 95.337 47.484 L 108.714 8.96 Z M 35.588 57.195 C 53.457 85.071 70.351 96.21 86.171 90.512 C 72.112 101.835 55.263 90.741 35.588 57.195 Z';
         
         ts.appendChild(rTshirt.path(shadPath, {
                 fillStyle: 'solid',
-                fill: 'rgba(0,0,0,0.4)',
+                fill: 'var(--tshirtstroke)',
                 stroke: 'none',
-                roughness: 0.2
+                roughness: 0.2 * rough
                 
         }));
         
         ts.appendChild(rTshirt.path(shadPath, {
-                fillStyle: 'none',
-                stroke: '#012',
-                strokeWidth: 0.3,
-                roughness: 1.1
+                fill: 'none',
+                stroke: 'var(--tshirtstroke)',
+                strokeWidth: 0.4,
+                roughness: 1.1 * rough
         }));
         
     };
     
-    // jacket
     const drawJacket = () => {
 
         jk.innerHTML = '';
@@ -288,7 +353,6 @@
 
     };
 
-
     function animate() {
 
         drawHooded();
@@ -296,11 +360,10 @@
         drawJacket();
 
         if (isAnimating) {
-            setTimeout(() => window.requestAnimationFrame(animate), 100);
+            setTimeout(() => window.requestAnimationFrame(animate), 1000/pause);
         }
 
     }
-
 
     const toggleAnimation = () => {
         if ((isAnimating = isAnimating ? false : true)) {
@@ -308,14 +371,10 @@
         }
     };
     
-    document.addEventListener('mouseup', toggleAnimation);
-    document.addEventListener('touch', toggleAnimation);
-    
     // init
     window.requestAnimationFrame(animate);
     
 })();
-
 
   </script>
 
