@@ -277,6 +277,7 @@ new (function () {
                 fill: 'rgba(200,200,200,0.5)',
                 fillStyle: 'zigzag',
                 fillWeight: 0.2,
+                bowing: 8,
                 hachureGap: 10,
                 hachureAngle: -55,
                 roughness: 4 * rough,
@@ -311,7 +312,7 @@ new (function () {
         
     };
 
-    const drawJacket = () => {
+    const OLD_drawJacket = () => {
     
         // outline {
         ts.appendChild(
@@ -403,7 +404,7 @@ new (function () {
     const drawHooded = () => {
         
         // group holder {
-        var ggg = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        let ggg = document.createElementNS('http://www.w3.org/2000/svg', 'g');
         
         ggg.setAttributeNS(null, 'transform', 'translate(12,2)');
         //}
@@ -510,7 +511,122 @@ new (function () {
         ts.appendChild(ggg);
         
     };
+   
+    const drawJacket = () => {
+        
+        // group holder {
+        let ggg = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        
+        ggg.setAttributeNS(null, 'transform', 'translate(20,2)');
+        //}
+        
+        // outline {
+        let outline = 'M 24.65 10.062 L 9.549 14.505 L 1 65.039 L 4.158 109.511 L 12.372 112.333 L 12.363 119.98 L 36.559 126.356 L 36.949 127.605 L 79.682 120.301 L 79.499 114.772 L 84.418 115.827 L 92.576 61.882 L 87.05 11.62 L 60.209 8.725 L 56.524 1.357 C 49.15 0.216 35.255 2.03 28.681 3.697 L 24.65 10.062 Z';
+        ggg.appendChild(rTshirt.path(outline,{
+                fillStyle: 'solid',
+                fill: 'var(--tshirtoutline)',
+                roughness: 1 * rough,
+                stroke: 'none'
+        }));
+        // }
+        
+        // body fabric {
+        let bodFab = 'M 18.372 80.621 L 16.828 80.043 L 18.571 73.567 L 18.571 66.997 L 16.318 54.528 L 11.408 15.827 L 26.168 12.228 L 29.338 7.09 C 36.675 5.305 46.131 4.135 54.573 4.578 L 57.978 10.911 L 84.503 15.827 L 75.537 31.938 L 68.833 68.841 L 69.351 73.526 L 70.215 81.34 L 74.272 118.38 L 38.514 123.61 L 35.25 111.443 L 33.664 122.954 L 16.318 118.139 L 18.372 80.621 Z';
+        
+        ggg.appendChild(rTshirt.path(bodFab,{
+            fill: 'var(--tshirtcolor)',
+            fillStyle: 'solid',
+            roughness: 1 * rough,
+            stroke: rough === 0 ? 'none' : 'var(--tshirtstroke)',
+            strokeWidth: 0.4,
+        }));
+            
+        //}
+        
+        // arm fabric {
+        
+        let armFab = 'M 13.686 24.947 L 16.828 56.66 L 15.04 74.776 L 14.967 106.936 L 13.092 109.033 L 5.514 106.936 L 3.812 63.141 L 11.408 15.827 L 13.686 24.947 Z M 84.503 15.827 L 90.104 64.225 L 80.815 112.965 L 67.338 109.396 L 71.298 60.877 L 69.97 38.645 L 69.97 38.645 L 75.537 17.38';
+        
+        ggg.appendChild(rTshirt.path(armFab,{
+            fill: 'var(--tshirtcolor)',
+            fillStyle: 'solid',
+            stroke: rough === 0 ? 'none' : 'var(--tshirtstroke)',
+            strokeWidth: 0.4,
+            roughness: 1 * rough,
+        }));
+            
+        //}
+        
+        // scratches {
+        if (rough > 0.1) {
+            ggg.appendChild(rTshirt.path(bodFab + armFab, {
+                fill: 'rgba(200,200,200,0.5)',
+                fillStyle: 'zigzag',
+                fillWeight: 0.2,
+                hachureGap: 10,
+                hachureAngle: -55,
+                roughness: 1 + 3 * rough,
+                stroke: 'none',
+                bowing: 8
+            }));
+        }
+        //}
+               
+        // buttons & neck {
+        let buttNeck = 'M 34.399 52.122 L 30.9 26.914 L 30.449 12.941 C 35.321 11.356 44.188 10.119 51.696 10.911 L 34.399 52.122 Z M 32.154 65.101 C 32.434 64.171 33.306 63.61 34.102 63.849 C 34.897 64.088 35.316 65.037 35.037 65.967 C 34.757 66.897 33.884 67.458 33.089 67.219 C 32.293 66.98 31.875 66.03 32.154 65.101 Z M 32.834 88.784 C 32.842 87.813 33.522 87.03 34.353 87.037 C 35.184 87.043 35.852 87.837 35.844 88.808 C 35.836 89.779 35.155 90.562 34.325 90.555 C 33.494 90.549 32.826 89.755 32.834 88.784 Z ';
+        
+        ggg.appendChild(rTshirt.path(buttNeck,{
+            fill: 'var(--tshirtstroke)',
+            fillStyle: 'solid',
+            stroke: rough === 0 ? 'none' : 'rgba(0,0,0,0.3)',
+            strokeWidth: 0.2,
+            roughness: 1 * rough,
+        }));
+            
+        //}
+        
+        // shade {
+        let shadPath = 'M 69.577 81.991 L 69.577 81.991 L 55.381 83.183 L 69.693 80.572 L 71.298 60.929 L 69.97 38.645 L 75.537 17.658 L 72.785 38.207 L 74.272 57.947 C 78.165 58.206 80.787 59.466 85.188 61.708 C 80.7 60.793 77.299 60.543 74.978 60.951 Q 74.089 61.107 68.833 106.936 L 80.815 112.965 L 67.338 109.396 L 69.577 81.991 Z  M 57.039 23.772 L 31.653 62.285 L 49.359 41.143 L 57.039 23.772 L 57.039 23.772 L 57.039 23.772 L 57.039 23.772 L 57.039 23.772 L 57.039 23.772 Z  M 18.381 80.634 L 25.322 83.277 L 18.302 82.019 L 18.381 80.634 L 18.381 80.634 L 18.381 80.634 L 18.381 80.634 L 18.381 80.634 L 18.381 80.634 Z  M 59.589 14.513 L 57.711 17.38 L 59.589 18.961 L 59.589 14.513 L 59.589 14.513 L 59.589 14.513 L 59.589 14.513 Z  M 37.691 121.233 L 31.973 91.939 L 30.018 62.385 L 34.399 52.122 L 32.771 54.725 L 23.78 27.852 L 23.464 32.536 L 31.715 56.415 L 28.892 60.929 L 30.9 93.746 L 37.691 121.233 L 37.691 121.233 L 37.691 121.233 Z  M 12.614 30.035 L 11.408 15.925 L 13.279 24.887 L 16.828 57.044 L 15.04 74.776 L 14.967 107.107 L 13.092 109.033 L 9.787 81.066 L 8.63 60.877 L 12.614 30.035 L 12.614 30.035 Z';
+        
+        ggg.appendChild(rTshirt.path(shadPath,
+            {
+                fillStyle: 'solid',
+                fill: 'rgba(0,0,0,0.3)',
+                stroke: rough == 0 ? 'none' : 'rgba(0,0,0,0.8)',
+                //stroke: 'rgba(0,0,0,0.8)',
+                //stroke: 'none',
+                strokeWidth: 0.1,
+                roughness: 1 * rough
+                
+            }
+        ));
+            
+        //}
+        
+        // hilite {
+        let hilite = `M 71.298 56.66 L 68.833 68.841 L 63.081 73.567 Z M 57.978 10.911 L 84.503 15.826 L 80.815 16.549 L 59.08 12.672 Z  M 26.168 12.228 L 11.408 15.925 L 25.101 14.046 Z`;
+                 
+        ggg.appendChild(rTshirt.path(hilite,
+            {
+                fillStyle: 'solid',
+                fill: 'rgba(255,255,255,0.3)',
+                stroke: rough === 0 ? 'none' : 'rgba(255,255,255,0.8)',
+                strokeWidth: 0.1,
+                roughness: 1 * rough
+                
+            }
+        ));
+
+        
+            
+        //}
+        
+        
+        ts.appendChild(ggg);
+        
+    }
     //}
+    
     
     // animation loop
     function animate() {
@@ -528,7 +644,7 @@ new (function () {
     // interaction control {
     const articleList = [drawHooded, drawTshirt, drawJacket];
     
-    let curArticle = 0;
+    let curArticle = 2;
     
     // lizzer for changing the article displayed
     const changeArticle = e => {
