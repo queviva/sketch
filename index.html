@@ -13,9 +13,9 @@
         --tshirtstroke: hsla(var(--tco),80%,30%,0.8);
         --hoodedcolor: hsla(calc(var(--tco) + 120),80%,30%,1.0);
         --hoodedstroke: hsla(calc(var(--tco) + 120),70%,10%,0.9);
-        --jacketoutline: hsla(calc(var(--tco) + 240),90%,80%,1.0);
-        --jacketcolor: hsla(calc(var(--tco) + 240),80%,30%,1.0);
-        --jacketstroke: hsla(calc(var(--tco) + 240),70%,10%,0.9);
+        --jacketoutline: hsla(calc(var(--tco)),30%,80%,1.0);
+        --jacketcolor: hsla(calc(var(--tco)),30%,30%,1.0);
+        --jacketstroke: hsla(calc(var(--tco)),30%,10%,0.9);
         --thumbH: 20px;
     }
     
@@ -176,81 +176,17 @@ new (function () {
     // }
     
     // drawing methods {
-    const OLD_drawHooded = () => {
-        
-        // outline {
-        ts.appendChild(rTshirt.path(
-            'M 45.367 15.853 L 41.265 23.601 L 15.523 23.798 L 3.316 51.141 L 31.147 74.822 L 35.786 69.939 L 35.198 124.454 L 66.115 125.73 L 97.308 122.012 L 95.792 88.034 L 99.377 83.551 L 95.748 81.261 L 95.599 58.465 L 109.709 54.723 L 123.035 25.589 L 105.701 2.64 L 91.053 12.649 L 94.082 23.69 L 90.175 23.895 L 88.589 16.673 C 80.577 13.049 56.307 13.434 45.367 15.853 Z',
-            {
-                fillStyle: 'solid',
-                fill: '#000',
-                strokeWidth: 1,
-                roughness: 1 * rough
-            }
-        ));
-        //}
-        
-        // upper area {
-        ts.appendChild(rTshirt.path(
-            'M 106.569 26.916 L 87.423 27.069 L 85.324 20.022 C 77.189 17.594 55.801 17.604 46.821 20.022 L 43.803 27.069 L 18.235 26.809 L 6.783 48.771 L 17.337 58.135 L 31.147 45.638 L 43.803 60.496 L 38.008 65.86 L 38.008 82.152 L 93 82.358 L 93 82.358 L 92.95 56.571 L 106.996 52.174 L 106.996 52.174 L 119.995 27.097 L 119.995 27.097 L 119.911 26.974 L 119.995 26.809 L 119.995 26.809 L 119.799 26.811 L 117.409 23.316 L 117.409 23.316 L 106.569 26.916 Z',
-            {
-                fill: 'var(--hoodedcolor)',
-                fillStyle: 'solid',
-                //fillStyle: 'hachure',
-                //fillWeight: 3,
-                stroke: 'var(--hoodedstroke)',
-                strokeWidth: 0.5,
-                roughness: 0.7 * rough,
-            }
-        ));
-        //}
-        
-        // cuffs &c. {
-        ts.appendChild(rTshirt.path(
-            'M 93 82.358 L 93.002 83.137 L 96.038 84.304 L 92.95 87.557 L 95.599 119.276 L 65.703 122.379 L 37.786 119.276 L 38.008 82.152 L 93 82.358 L 93 82.358 L 93 82.358 Z  M 32.375 45.638 L 43.533 60.496 L 31.504 70.706 L 17.337 58.135 L 32.375 45.638 L 32.375 45.638 L 32.375 45.638 Z  M 117.409 23.316 L 105.771 6.301 L 94.705 13.869 L 99.631 29.221 L 117.409 23.316 L 117.409 23.316 Z',
-            {
-                fillRule: 'evenodd',
-                fill: '#aaa',
-                fillStyle: 'solid',
-                stroke: 'none',
-                roughness: 1 * rough
-            }
-        ));
-        //}
-        
-        // seams {
-        ts.appendChild(rTshirt.path(
-            'M 36.709 81.261 L 93.755 81.47 L 93.586 83.273 L 37.445 83.581 L 36.709 81.261 L 36.709 81.261 Z  M 15.523 59.14 L 17.202 60.496 L 32.978 46.246 L 31.716 44.512 L 15.523 59.14 L 15.523 59.14 Z  M 99.377 28.397 L 117.758 21.987 L 118.651 23.59 L 100.025 30.351 L 99.377 28.397 Z',
-            {
-                fill: 'none',
-                //fillStyle: 'solid',
-                stroke: '#000',
-                strokeWidth: 0.5,
-                roughness: 1 * rough
-            }
-        ));
-        //}
-        
-        // shade {
-        ts.appendChild(rTshirt.path(
-            'M 49.652 21.405 L 54.06 26.073 C 60.988 24.786 69.599 24.984 77.911 26.073 L 82.266 21.987 L 64.664 45.039 L 49.652 21.405 L 49.652 21.405 L 49.652 21.405 L 49.652 21.405 L 49.652 21.405 L 49.652 21.405 Z  M 47.288 29.142 L 63.807 46.432 L 45.177 29.261 L 47.288 29.142 L 47.288 29.142 L 47.288 29.142 L 47.288 29.142 L 47.288 29.142 L 47.288 29.142 Z  M 84.065 28.397 L 73.621 39.079 L 65.67 45.867 L 74.873 39.079 L 86.563 28.744 L 84.065 28.397 L 84.065 28.397 L 84.065 28.397 L 84.065 28.397 L 84.065 28.397 Z  M 20.075 29.142 L 42.216 58.74 L 23.472 30.645 L 20.075 29.142 L 20.075 29.142 L 20.075 29.142 L 20.075 29.142 Z  M 90.21 110.043 L 86.563 87.557 L 87.999 111.769 L 92.49 116.577 L 90.21 110.043 L 90.21 110.043 L 90.21 110.043 Z  M 41.884 110.347 L 43.803 87.557 L 43.533 112.275 L 40.163 116.342 L 41.884 110.347 L 41.884 110.347 Z  M 99.255 28.079 L 106.366 51.442 L 103.978 50.474 L 99.255 28.079 Z',
-            {
-                fillStyle: 'solid',
-                fill: 'rgba(0,0,0,0.4)',
-                stroke: 'none',
-                roughness: 1.1 * rough
-                
-            }
-            
-        ));
-        //}
-        
-    };
-
+    
     const drawTshirt = () => {
         
+        // group holder {
+        let ggg = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        
+        ggg.setAttributeNS(null, 'transform', 'translate(-3,2)');
+        //}
+        
         // outline {
-        ts.appendChild(rTshirt.path(
+        ggg.appendChild(rTshirt.path(
             'M 3.691 8.075 L 47.363 8.352 C 57.088 10.739 65.614 10.615 76.498 8.188 L 104.799 8.352 L 107.31 6.918 L 124.166 4.929 L 121.996 42.116 L 98.317 50.183 L 100.467 106.399 C 87.375 109.83 73.918 115.322 60.066 118.119 C 49.858 115.385 36.732 110.996 28.309 105.907 L 30.313 51.183 L 3.593 44.783',
             {
                 fillStyle: 'solid',
@@ -261,10 +197,10 @@ new (function () {
         ));
         // }
         
-        // inside t-shirt {
+        // fabric {
         let tPath =  'M 7.387 11.173 L 48.136 11.438 C 59.612 13.586 69.266 13.606 77.037 11.438 L 104.269 11.438 L 108.714 9.002 L 119.799 8.168 L 118.874 40.034 L 95.259 47.338 L 97.155 103.532 C 86.757 108.705 74.201 111.694 59.458 112.47 L 33.395 103.532 L 33.346 49.502 L 8.414 43.389';
         
-        ts.appendChild(rTshirt.path(tPath, {
+        ggg.appendChild(rTshirt.path(tPath, {
                 fill: 'var(--tshirtcolor)',
                 fillStyle: 'solid',
                 roughness: 1 * rough,
@@ -272,19 +208,19 @@ new (function () {
         }));
         //}
         
-        // scratches on shirt {
-        ts.appendChild(rTshirt.path(tPath, {
-                fill: 'rgba(200,200,200,0.5)',
+        // scratches {
+        ggg.appendChild(rTshirt.path(tPath, {
+                fill: rough === 0 ? 'none' : 'rgba(200,200,200,0.5)',
                 fillStyle: 'zigzag',
                 fillWeight: 0.2,
                 bowing: 8,
-                hachureGap: 10,
+                hachureGap: 8,
                 hachureAngle: -55,
-                roughness: 4 * rough,
+                roughness: 0.5 + 3.5 * rough,
                 stroke: 'none'
         }));
                 
-        ts.appendChild(rTshirt.path(tPath +' Z', {
+        ggg.appendChild(rTshirt.path(tPath +' Z', {
                 fill: 'none',
                 stroke: 'var(--tshirtstroke)',
                 roughness: 1 * rough
@@ -294,7 +230,7 @@ new (function () {
         // shades {
         let shadPath = 'M 49.67 13.743 C 59.085 16.575 69.07 16.229 76.341 14.861 C 70.131 25.911 61.265 27.079 49.67 13.743 Z M 17.523 15.198 L 29.453 43.582 L 11.901 25.208 L 30.275 45.914 L 33.1 47.484 L 17.523 15.198 Z M 108.714 8.96 L 104.298 11.438 L 106.488 11.438 L 95.337 47.484 L 108.714 8.96 Z M 35.588 57.195 C 53.457 85.071 70.351 96.21 86.171 90.512 C 72.112 101.835 55.263 90.741 35.588 57.195 Z';
         
-        ts.appendChild(rTshirt.path(shadPath, {
+        ggg.appendChild(rTshirt.path(shadPath, {
                 fillStyle: 'solid',
                 fill: 'var(--tshirtstroke)',
                 stroke: 'none',
@@ -302,7 +238,7 @@ new (function () {
                 
         }));
         
-        ts.appendChild(rTshirt.path(shadPath, {
+        ggg.appendChild(rTshirt.path(shadPath, {
                 fill: 'none',
                 stroke: 'var(--tshirtstroke)',
                 strokeWidth: 0.4,
@@ -310,95 +246,8 @@ new (function () {
         }));
         //}
         
-    };
-
-    const OLD_drawJacket = () => {
-    
-        // outline {
-        ts.appendChild(
-            rTshirt.path(
-                'M 49.597 14.855 L 45.526 22.544 L 14.114 22.997 L 2 50.132 L 29.619 73.633 L 34.223 68.787 L 33.639 122.887 L 64.321 124.154 L 107.26 115.148 L 93.772 86.744 L 97.33 82.295 L 93.728 80.023 L 93.58 57.4 L 107.583 53.687 L 120.807 24.774 L 103.606 2 L 89.069 11.933 L 91.977 22.109 L 81.317 22.836 L 78.544 15.986 C 70.752 13.384 60.603 13.439 49.597 14.855 Z',
-                {
-                    roughness: 1.3 * rough,
-                    //fillWeight: 10,
-                    fillStyle: 'solid',
-                    fill: 'var(--jacketoutline)',
-                    strokeWidth: 3,
-                    stroke: 'var(--jacketoutline)'
-
-                }
-            )
-        );
-        // }
+        ts.appendChild(ggg);
         
-        // fabric {
-        ts.appendChild(rTshirt.path(
-            'M 16.805 25.985 L 16.805 25.985 L 5.441 47.78 L 29.973 69.548 L 39.123 61.782 L 39.123 61.782 L 36.522 65.069 L 36.208 117.749 L 63.169 118.831 L 64.189 97.643 L 72.475 118.831 L 102.578 113.572 L 101.24 110.429 L 90.952 86.271 L 94.016 83.043 L 90.952 82.295 L 90.952 55.521 L 104.891 51.157 L 104.891 51.157 L 117.791 26.271 L 117.791 26.271 L 117.791 26.271 L 117.707 26.149 L 117.791 25.985 L 117.791 25.985 L 117.595 25.985 L 103.675 5.633 L 92.693 13.144 L 96.814 25.985 L 78.585 25.985 L 76.503 18.992 C 68.271 17.675 59.783 17.674 51.039 18.992 L 48.045 25.985 L 16.805 25.985 Z  M 63.879 79.953 L 66.924 83.133 L 63.98 92.308 L 63.879 79.953 L 63.879 79.953 L 63.879 79.953 Z  M 64.199 67.807 L 65.403 71.201 L 64.299 75.355 L 64.199 67.807 L 64.199 67.807 Z',
-            {
-                fill: 'var(--jacketcolor)',
-                fillStyle: 'solid',//'hachure',
-                hachureAngle: -60,
-                fillWeight: 2.2,
-                roughness: 1.1 * rough,
-                stroke: 'var(--jacketstroke)'
-            }
-            
-        ));
-        // }
-    
-        if(rough > 0) {
-            // scratches {
-            ts.appendChild(rTshirt.path(
-                'M 16.805 25.985 L 16.805 25.985 L 5.441 47.78 L 29.973 69.548 L 39.123 61.782 L 39.123 61.782 L 36.522 65.069 L 36.208 117.749 L 63.169 118.831 L 64.189 97.643 L 72.475 118.831 L 102.578 113.572 L 101.24 110.429 L 90.952 86.271 L 94.016 83.043 L 90.952 82.295 L 90.952 55.521 L 104.891 51.157 L 104.891 51.157 L 117.791 26.271 L 117.791 26.271 L 117.791 26.271 L 117.707 26.149 L 117.791 25.985 L 117.791 25.985 L 117.595 25.985 L 103.675 5.633 L 92.693 13.144 L 96.814 25.985 L 78.585 25.985 L 76.503 18.992 C 68.271 17.675 59.783 17.674 51.039 18.992 L 48.045 25.985 L 16.805 25.985 Z  M 63.879 79.953 L 66.924 83.133 L 63.98 92.308 L 63.879 79.953 L 63.879 79.953 L 63.879 79.953 Z  M 64.199 67.807 L 65.403 71.201 L 64.299 75.355 L 64.199 67.807 L 64.199 67.807 Z', {
-                    fill: 'rgba(200,200,200,0.5)',
-                    fillStyle: 'zigzag',
-                    fillWeight: 0.2,
-                    hachureGap: 10,
-                    hachureAngle: -55,
-                    roughness: 4 * rough,
-                    stroke: 'none'
-                }
-            ));
-            //}
-        }
-        
-        // buttons {
-        ts.appendChild(rTshirt.path(
-            'M 62.174 58.07 C 62.174 57.135 62.932 56.376 63.867 56.376 C 64.802 56.376 65.561 57.135 65.561 58.07 C 65.561 59.005 64.802 59.763 63.867 59.763 C 62.932 59.763 62.174 59.005 62.174 58.07 L 62.174 58.07 Z  M 62.174 77.813 C 62.174 76.879 62.932 76.12 63.867 76.12 C 64.802 76.12 65.561 76.879 65.561 77.813 C 65.561 78.748 64.802 79.507 63.867 79.507 C 62.932 79.507 62.174 78.748 62.174 77.813 L 62.174 77.813 Z  M 62.174 94.76 C 62.174 93.826 62.932 93.067 63.867 93.067 C 64.802 93.067 65.561 93.826 65.561 94.76 C 65.561 95.695 64.802 96.454 63.867 96.454 C 62.932 96.454 62.174 95.695 62.174 94.76 Z',
-            {
-                fill: 'var(--jacketstroke)',
-                fillStyle: 'solid',
-                roughness: 0.1 * rough,
-                stroke: 'none'
-            }
-            
-        ));
-        //}
-        
-        // shade {
-        ts.appendChild(rTshirt.path(
-            'M 53.899 20.65 L 55.176 22.193 C 60.628 21.584 66.404 21.585 72.475 22.165 L 73.835 20.942 L 63.169 44.076 L 53.899 20.65 L 53.899 20.65 L 53.899 20.65 L 53.899 20.65 Z  M 45.752 35.613 L 47.756 27.561 L 47.389 34.414 L 49.728 34.695 L 47.389 38.449 L 59.854 51.157 L 45.752 38.449 L 47.405 36.285 L 45.752 35.613 L 45.752 35.613 L 45.752 35.613 L 45.752 35.613 Z  M 80.889 35.904 L 78.885 27.852 L 79.252 34.705 L 76.913 34.986 L 79.252 38.74 L 62.031 55.521 L 80.889 38.74 L 79.594 36.471 L 80.889 35.904 L 80.889 35.904 L 80.889 35.904 Z  M 18.631 28.301 L 39.565 58.07 L 22.002 29.792 L 18.631 28.301 L 18.631 28.301 Z  M 96.659 26.418 L 103.594 48.536 L 101.224 47.576 L 96.659 26.418 Z',
-            {
-                fill: 'var(--jacketstroke)',
-                fillStyle: 'solid',
-                roughness: 0.5 * rough,
-                stroke: 'none'
-            }
-        ));
-            
-        //}
-        
-        // hilite {
-        ts.appendChild(rTshirt.path(
-            'M 63.98 79.953 L 94.016 82.771 L 66.924 83.133 L 63.98 79.953 Z',
-            {
-                fillStyle: 'solid',
-                fill: 'rgba(255,255,255,0.20',
-                stroke: 'none',
-                roughness: 1 * rough
-            }
-        ))
-        //}
     };
 
     const drawHooded = () => {
@@ -517,14 +366,14 @@ new (function () {
         // group holder {
         let ggg = document.createElementNS('http://www.w3.org/2000/svg', 'g');
         
-        ggg.setAttributeNS(null, 'transform', 'translate(20,2)');
+        ggg.setAttributeNS(null, 'transform', 'translate(18,2)');
         //}
         
         // outline {
         let outline = 'M 24.65 10.062 L 9.549 14.505 L 1 65.039 L 4.158 109.511 L 12.372 112.333 L 12.363 119.98 L 36.559 126.356 L 36.949 127.605 L 79.682 120.301 L 79.499 114.772 L 84.418 115.827 L 92.576 61.882 L 87.05 11.62 L 60.209 8.725 L 56.524 1.357 C 49.15 0.216 35.255 2.03 28.681 3.697 L 24.65 10.062 Z';
         ggg.appendChild(rTshirt.path(outline,{
                 fillStyle: 'solid',
-                fill: 'var(--tshirtoutline)',
+                fill: 'var(--jacketoutline)',
                 roughness: 1 * rough,
                 stroke: 'none'
         }));
@@ -534,10 +383,10 @@ new (function () {
         let bodFab = 'M 18.372 80.621 L 16.828 80.043 L 18.571 73.567 L 18.571 66.997 L 16.318 54.528 L 11.408 15.827 L 26.168 12.228 L 29.338 7.09 C 36.675 5.305 46.131 4.135 54.573 4.578 L 57.978 10.911 L 84.503 15.827 L 75.537 31.938 L 68.833 68.841 L 69.351 73.526 L 70.215 81.34 L 74.272 118.38 L 38.514 123.61 L 35.25 111.443 L 33.664 122.954 L 16.318 118.139 L 18.372 80.621 Z';
         
         ggg.appendChild(rTshirt.path(bodFab,{
-            fill: 'var(--tshirtcolor)',
+            fill: 'var(--jacketcolor)',
             fillStyle: 'solid',
             roughness: 1 * rough,
-            stroke: rough === 0 ? 'none' : 'var(--tshirtstroke)',
+            stroke: rough === 0 ? 'none' : 'var(--jacketstroke)',
             strokeWidth: 0.4,
         }));
             
@@ -548,9 +397,9 @@ new (function () {
         let armFab = 'M 13.686 24.947 L 16.828 56.66 L 15.04 74.776 L 14.967 106.936 L 13.092 109.033 L 5.514 106.936 L 3.812 63.141 L 11.408 15.827 L 13.686 24.947 Z M 84.503 15.827 L 90.104 64.225 L 80.815 112.965 L 67.338 109.396 L 71.298 60.877 L 69.97 38.645 L 69.97 38.645 L 75.537 17.38';
         
         ggg.appendChild(rTshirt.path(armFab,{
-            fill: 'var(--tshirtcolor)',
+            fill: 'var(--jacketcolor)',
             fillStyle: 'solid',
-            stroke: rough === 0 ? 'none' : 'var(--tshirtstroke)',
+            stroke: rough === 0 ? 'none' : 'var(--jacketstroke)',
             strokeWidth: 0.4,
             roughness: 1 * rough,
         }));
@@ -560,7 +409,7 @@ new (function () {
         // scratches {
         if (rough > 0.1) {
             ggg.appendChild(rTshirt.path(bodFab + armFab, {
-                fill: 'rgba(200,200,200,0.5)',
+                fill: 'rgba(200,200,200,0.1)',
                 fillStyle: 'zigzag',
                 fillWeight: 0.2,
                 hachureGap: 10,
@@ -576,7 +425,7 @@ new (function () {
         let buttNeck = 'M 34.399 52.122 L 30.9 26.914 L 30.449 12.941 C 35.321 11.356 44.188 10.119 51.696 10.911 L 34.399 52.122 Z M 32.154 65.101 C 32.434 64.171 33.306 63.61 34.102 63.849 C 34.897 64.088 35.316 65.037 35.037 65.967 C 34.757 66.897 33.884 67.458 33.089 67.219 C 32.293 66.98 31.875 66.03 32.154 65.101 Z M 32.834 88.784 C 32.842 87.813 33.522 87.03 34.353 87.037 C 35.184 87.043 35.852 87.837 35.844 88.808 C 35.836 89.779 35.155 90.562 34.325 90.555 C 33.494 90.549 32.826 89.755 32.834 88.784 Z ';
         
         ggg.appendChild(rTshirt.path(buttNeck,{
-            fill: 'var(--tshirtstroke)',
+            fill: 'var(--jacketstroke)',
             fillStyle: 'solid',
             stroke: rough === 0 ? 'none' : 'rgba(0,0,0,0.3)',
             strokeWidth: 0.2,
@@ -604,13 +453,18 @@ new (function () {
         //}
         
         // hilite {
-        let hilite = `M 71.298 56.66 L 68.833 68.841 L 63.081 73.567 Z M 57.978 10.911 L 84.503 15.826 L 80.815 16.549 L 59.08 12.672 Z  M 26.168 12.228 L 11.408 15.925 L 25.101 14.046 Z`;
+        let hilite = `
+        
+        M 71.298 56.66 L 68.833 68.841 L 63.081 73.567 Z
+        M 57.978 10.911 L 84.503 15.826 L 78.15 15.9 L 59.08 12.672 Z
+        M 26.168 12.228 L 11.408 15.925 L 25.101 14.046 Z`;
                  
         ggg.appendChild(rTshirt.path(hilite,
             {
                 fillStyle: 'solid',
                 fill: 'rgba(255,255,255,0.3)',
                 stroke: rough === 0 ? 'none' : 'rgba(255,255,255,0.8)',
+                //stroke: 'none',
                 strokeWidth: 0.1,
                 roughness: 1 * rough
                 
@@ -621,12 +475,11 @@ new (function () {
             
         //}
         
-        
         ts.appendChild(ggg);
         
     }
-    //}
     
+    //}
     
     // animation loop
     function animate() {
