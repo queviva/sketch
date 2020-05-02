@@ -8,11 +8,12 @@
   
     :root {
         --tco: 240;
-        --tshirtoutline: hsla(var(--tco),90%,80%,1.0);
-        --tshirtcolor: hsla(var(--tco),90%,45%,1.0);
-        --tshirtstroke: hsla(var(--tco),80%,30%,0.8);
-        --hoodedcolor: hsla(calc(var(--tco) + 120),80%,30%,1.0);
-        --hoodedstroke: hsla(calc(var(--tco) + 120),70%,10%,0.9);
+        --tshirtoutline: hsla(var(--tco),70%,80%,1.0);
+        --tshirtcolor: hsla(var(--tco),60%,45%,1.0);
+        --tshirtstroke: hsla(var(--tco),55%,30%,0.8);
+        --hoodedoutline: hsla(var(--tco),90%,80%,1.0);
+        --hoodedcolor: hsla(var(--tco),90%,45%,1.0);
+        --hoodedstroke: hsla(var(--tco),80%,30%,0.8);
         --jacketoutline: hsla(calc(var(--tco)),30%,80%,1.0);
         --jacketcolor: hsla(calc(var(--tco)),30%,30%,1.0);
         --jacketstroke: hsla(calc(var(--tco)),30%,10%,0.9);
@@ -87,7 +88,7 @@ input[type=range]:focus {
 <body>
  <div id="holder">
   <div> click for More </div>
-  <svg id="tSVG"><g id="tshirt" transform="scale(2.5)" XXXstroke-linecap="round"></g></svg>
+  <svg id="tSVG"><g id="tshirt" transform="scale(2.5)"></g></svg>
   <br>
   <div><input id="colorSlider" value=240 min=0 max=360 type="range"></div>
   <div><input id="speedSlider" value=17 min=0 max=20 type="range"></div>
@@ -259,20 +260,37 @@ new (function () {
         //}
        
         // outline {
-        let outline = 'M 27.254 2.782 L 72.952 3.429 L 79.85 14.853 L 86.101 21.32 L 91.705 51.929 L 94.938 76.718 L 96.878 115.734 L 83.083 119.614 L 78.987 106.034 L 75.538 110.776 L 48.81 109.482 L 23.589 111.638 L 21.434 106.465 L 17.554 119.398 L 0.741 114.871 L 4.836 72.838 L 8.285 48.049 L 14.321 19.165 L 20.572 14.422 L 27.254 2.782 Z';
+        let outline = 'M 27.603 0.647 L 58.146 3.253 L 72.696 1.363 L 79.85 14.853 L 86.101 21.32 L 91.705 51.929 L 94.938 76.718 L 96.878 115.734 L 83.083 119.614 L 78.987 106.034 L 75.538 110.776 L 48.81 109.482 L 23.589 111.638 L 21.434 106.465 L 17.554 119.398 L 0.741 114.871 L 4.836 72.838 L 8.285 48.049 L 14.321 19.165 L 20.572 14.422 L 27.603 0.647 Z';
         ggg.appendChild(rTshirt.path(outline,{
                 fillStyle: 'solid',
-                fill: 'var(--tshirtoutline)',
+                fill: 'var(--hoodedoutline)',
                 roughness: 1 * rough,
                 stroke: 'none'
         }));
         // }
     
-        // yellow fabric {
-        let yellowFab = 'M 43.523 29.21 L 21.737 17.154 L 29.14 5.52 L 71.02 5.52 L 78 17.154 L 55.791 29.21 L 43.523 29.21 L 43.523 29.21 Z  M 47.321 107.265 L 24.909 108.529 L 21.737 99.646 L 16.026 116.144 L 3.758 112.76 L 7.643 73.223 L 18.679 64.945 L 19.527 58.661 L 35.233 55.442 L 47.321 64.453 L 47.321 107.265 L 47.321 107.265 Z  M 74.616 108.529 L 79.058 99.646 L 83.288 116.144 L 94.922 111.068 L 91.947 74.602 L 80.757 68.011 L 80.757 58.661 L 64.427 55.041 L 51.784 64.539 L 50.888 107.265 L 74.616 108.529 Z';
+        // color fabric {
+        let colorFab = `
+    M 43.523 29.21 L 21.737 17.154 L 29.488 3.385 L 59.321 5.933 L 70.115 4.377 L 78 17.154 L 55.791 29.21 L 43.523 29.21 L 43.523 29.21 L 43.523 29.21 Z  M 47.321 107.265 L 24.909 108.529 L 21.737 99.646 L 16.026 116.144 L 3.758 112.76 L 7.643 72.838 L 18.679 64.945 L 19.527 58.661 L 35.233 55.442 L 47.321 64.453 L 47.321 107.265 L 47.321 107.265 L 47.321 107.265 Z  M 74.616 108.529 L 79.058 99.646 L 83.288 116.144 L 94.922 111.068 L 91.947 74.602 L 80.757 68.011 L 80.757 58.661 L 64.427 55.041 L 51.784 64.539 L 52.792 107.265 L 74.616 108.529 L 74.616 108.529 Z
+        `;
         
-        ggg.appendChild(rTshirt.path(yellowFab,{
-            fill: 'var(--tshirtcolor)',
+        ggg.appendChild(rTshirt.path(colorFab,{
+            fill: 'var(--hoodedcolor)',
+            fillStyle: 'solid',
+            roughness: 1 * rough,
+            stroke: 'none'
+        }));
+            
+        //}
+        
+        // neck vee {
+        
+        let neckV = `
+    M 38.676 13.16 L 54.75 14.145 L 61.551 11.948 L 56.424 23.877 L 51.593 28.376 L 47.321 28.376 L 41.67 22.412 L 38.676 13.16 Z
+        `;
+        
+        ggg.appendChild(rTshirt.path(neckV,{
+            fill: 'rgba(162,162,162,1.0)',
             fillStyle: 'solid',
             roughness: 1 * rough,
             stroke: 'none'
@@ -281,7 +299,10 @@ new (function () {
         //}
         
         // grey fabric {
-        let greyFab = 'M 91.947 74.602 L 80.757 68.011 L 80.757 58.661 L 64.427 55.041 L 79.709 43.91 L 88.56 49.879 L 91.947 74.602 L 91.947 74.602 Z  M 39.054 14.145 L 54.75 14.145 L 61.551 11.948 L 56.424 23.877 L 51.593 28.376 L 47.321 28.376 L 41.67 22.412 L 39.054 14.145 L 39.054 14.145 Z  M 18.679 64.945 L 7.643 73.223 L 11.154 49.879 L 19.527 43.91 L 35.233 55.442 L 19.527 58.661 L 18.679 64.945 Z';
+        let greyFab = `
+    M 91.947 74.602 L 80.757 68.011 L 80.757 58.661 L 64.427 55.041 L 79.709 43.91 L 88.56 49.879 L 91.947 74.602 L 91.947 74.602 Z  M 18.679 64.945 L 7.643 72.838 L 11.154 49.879 L 19.527 43.91 L 35.233 55.442 L 19.527 58.661 L 18.679 64.945 Z
+        `;
+        
         
         ggg.appendChild(rTshirt.path(greyFab,{
             fill: 'rgba(162,162,162,1.0)',
@@ -320,9 +341,9 @@ new (function () {
         //}
         
         // fab outlines {
-        ggg.appendChild(rTshirt.path(yellowFab,{
+        ggg.appendChild(rTshirt.path(colorFab,{
             fill: 'none',
-            stroke: 'var(--tshirtstroke)',
+            stroke: 'var(--hoodedstroke)',
             strokeWidth: 0.4,
             roughness: 1 * rough
         }));
@@ -332,17 +353,16 @@ new (function () {
             strokeWidth: 0.4,
             roughness: 1 * rough
         }));
-        ggg.appendChild(rTshirt.path(greyFab,{
+        ggg.appendChild(rTshirt.path(greyFab + neckV,{
             fill: 'none',
             stroke: 'rgba(80,80,80,0.8)',
             strokeWidth: 0.4,
             roughness: 1 * rough
         }));
-            
         //}
         
         // shade {
-        let shadPath = 'M 30.794 9.022 L 35.768 21.973 L 43.655 27.129 L 37.422 21.56 L 33.012 11.087 L 36.548 8.853 L 30.794 9.022 L 30.794 9.022 L 30.794 9.022 L 30.794 9.022 L 30.794 9.022 L 30.794 9.022 L 30.794 9.022 L 30.794 9.022 Z  M 55.411 26.975 L 62.207 21.815 L 69.167 8.531 L 59.853 8.531 L 64.612 10.555 L 60.571 21.563 L 55.411 26.975 L 55.411 26.975 L 55.411 26.975 L 55.411 26.975 L 55.411 26.975 L 55.411 26.975 L 55.411 26.975 L 55.411 26.975 Z  M 55.791 9.022 L 50.428 10.22 L 39.128 9.256 L 55.791 9.022 L 55.791 9.022 L 55.791 9.022 L 55.791 9.022 L 55.791 9.022 L 55.791 9.022 L 55.791 9.022 Z  M 21.737 99.918 L 19.527 58.661 L 19.527 43.91 L 20.572 29.21 L 19.527 30.985 L 18.765 44.791 L 17.832 59.715 L 17.832 96.681 L 19.884 104.953 L 21.737 99.918 L 21.737 99.918 L 21.737 99.918 L 21.737 99.918 L 21.737 99.918 L 21.737 99.918 Z  M 83.288 116.144 L 78.987 99.646 L 74.616 108.529 L 78 97.229 L 80.094 60.368 L 80.094 45.617 L 79.049 30.918 L 80.094 32.692 L 80.856 46.498 L 81.789 61.422 L 82.276 96.719 L 85.155 115.274 L 83.288 116.144 Z  M 69.167 104.953 L 72.952 99.646 L 74.894 78.858 L 71.145 97.96 L 69.167 104.953 L 69.167 104.953 L 69.167 104.953 L 69.167 104.953 Z  M 48.859 62.216 L 48.81 30.918 L 50.043 31.473 L 49.314 59.399 L 50.565 83.72 L 49.616 81.736 L 48.859 62.216 L 48.859 62.216 L 48.859 62.216 Z  M 30.498 99.981 L 33.012 106.034 L 28.837 99.801 L 27.254 83.722 L 30.498 99.981 L 30.498 99.981 Z  M 36.327 102.942 L 39.054 106.034 L 34.529 102.942 L 33.012 92.854 L 36.327 102.942 Z';
+        let shadPath = ' M 31.143 6.887 L 35.768 21.973 L 43.655 27.129 L 37.422 21.56 L 33.012 11.087 L 36.327 8.01 L 31.143 6.887 L 31.143 6.887 L 31.143 6.887 L 31.143 6.887 L 31.143 6.887 L 31.143 6.887 L 31.143 6.887 L 31.143 6.887 Z  M 55.411 26.975 L 62.207 21.815 L 68.262 7.388 L 59.853 8.531 L 64.612 10.555 L 60.571 21.563 L 55.411 26.975 L 55.411 26.975 L 55.411 26.975 L 55.411 26.975 L 55.411 26.975 L 55.411 26.975 L 55.411 26.975 L 55.411 26.975 Z  M 55.821 9.37 L 50.565 11.087 L 39.128 8.531 L 50.458 9.865 L 55.821 9.37 L 55.821 9.37 L 55.821 9.37 L 55.821 9.37 L 55.821 9.37 L 55.821 9.37 L 55.821 9.37 Z  M 21.737 99.918 L 19.527 58.661 L 19.527 43.91 L 20.572 29.21 L 19.527 30.985 L 18.765 44.791 L 17.832 59.715 L 17.832 96.681 L 19.884 104.953 L 21.737 99.918 L 21.737 99.918 L 21.737 99.918 L 21.737 99.918 L 21.737 99.918 L 21.737 99.918 Z  M 83.288 116.144 L 78.987 99.646 L 74.616 108.529 L 78 97.229 L 80.094 60.368 L 80.094 45.617 L 79.049 30.918 L 80.094 32.692 L 80.856 46.498 L 81.789 61.422 L 82.276 96.719 L 85.155 115.274 L 83.288 116.144 Z  M 69.167 104.953 L 72.952 99.646 L 74.894 78.858 L 71.145 97.96 L 69.167 104.953 L 69.167 104.953 L 69.167 104.953 L 69.167 104.953 Z  M 48.859 62.216 L 48.81 30.918 L 50.043 31.473 L 49.314 59.399 L 50.565 83.72 L 49.616 81.736 L 48.859 62.216 L 48.859 62.216 L 48.859 62.216 Z  M 30.498 99.981 L 33.012 106.034 L 28.837 99.801 L 27.254 83.722 L 30.498 99.981 L 30.498 99.981 Z  M 36.327 102.942 L 39.054 106.034 L 34.529 102.942 L 33.012 92.854 L 36.327 102.942 Z';
         ggg.appendChild(rTshirt.path(shadPath,
             {
                 fillStyle: 'solid',
@@ -463,7 +483,7 @@ new (function () {
             {
                 fillStyle: 'solid',
                 fill: 'rgba(255,255,255,0.3)',
-                stroke: rough === 0 ? 'none' : 'rgba(255,255,255,0.8)',
+                stroke: rough < 0.75 ? 'none' : 'rgba(255,255,255,0.8)',
                 //stroke: 'none',
                 strokeWidth: 0.1,
                 roughness: 1 * rough
@@ -481,7 +501,7 @@ new (function () {
     
     //}
     
-    // animation loop
+    // animation loop {
     function animate() {
 
         ts.innerHTML = '';
@@ -493,13 +513,13 @@ new (function () {
         }
 
     }
+    //}
 
     // interaction control {
     const articleList = [drawHooded, drawTshirt, drawJacket];
     
-    let curArticle = 2;
+    let curArticle = 1;
     
-    // lizzer for changing the article displayed
     const changeArticle = e => {
         curArticle = (curArticle + 1) % 3;
         if (!isAnimating) { animate() }
@@ -508,7 +528,16 @@ new (function () {
     const tSVG = document.getElementById('tSVG');
     tSVG.addEventListener('click', changeArticle);
     
+    //}
+    
+    // init {
+    
+    document.documentElement.style.setProperty('--tco',
+        (colorSlider.value = 20)
+    );
+    
     window.requestAnimationFrame(animate);
+    
     //}
     
 })();
