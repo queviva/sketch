@@ -93,10 +93,10 @@ input[type=range]:focus {
   <div id="moreDiv"> click for More </div>
   <svg id="tSVG"><g id="tshirt" transform="scale(2.5)"></g></svg>
   <br>
-  <div><input id="colorSlider" value=240 min=0 max=360 type="range"></div>
-  <div><input id="speedSlider" value=17 min=0 max=20 type="range"></div>
+  <div><input id="colorSlider" value="240" min="0" max="360" type="range"></div>
+  <div><input id="speedSlider" value="17" min="0" max="20" type="range"></div>
   <div>
-   <input id="sketchSlider" value="0.75" min=0 max=8 step=0.25 type="range">
+   <input id="sketchSlider" value="3.75" min="0" max="10" step="0.01" type="range">
   </div>
   <br>
   <hr>
@@ -150,38 +150,7 @@ input[type=range]:focus {
     const speedSlider = document.getElementById('speedSlider');
     const sketchSlider = document.getElementById('sketchSlider');
     //}
-    
-    // lizzers {
-    colorSlider.addEventListener('input', e => {
-        document.documentElement.style.setProperty('--tco', colorSlider.value);
-    });
-    
-    speedSlider.addEventListener('input', e => {
-    
-        cancelAnimationFrame(animate);
-        
-        if (parseInt(speedSlider.value, 10) < 0.1) {
-            isAnimating = false;
-            loop = clearTimeout(loop);
-        }
-        else {
-            pause = parseInt(speedSlider.value, 10);
-            if (!isAnimating) {
-                isAnimating = true;
-                animate();
-            }
-        }
-    
-    });
-    
-    sketchSlider.addEventListener('input', e => {
-        rough = parseFloat(sketchSlider.value);
-        if(!isAnimating){
-            animate();
-        }
-    });
-    // }
-    
+   
     // drawing methods {
     
     const drawTshirt = () => {
@@ -725,7 +694,43 @@ M90.1 14.1L97.2 15.4L97.7 14.6L90.6 12.8L90.1 14.1Z
     }
 
     //}
+        
+    // lizzers {
+    colorSlider.addEventListener('input', e => {
+        document.documentElement.style.setProperty('--tco', colorSlider.value);
+    });
     
+    speedSlider.addEventListener('input', e => {
+    
+        cancelAnimationFrame(animate);
+        
+        if (parseInt(speedSlider.value, 10) < 0.1) {
+            isAnimating = false;
+            loop = clearTimeout(loop);
+        }
+        else {
+            pause = parseInt(speedSlider.value, 10);
+            if (!isAnimating) {
+                isAnimating = true;
+                animate();
+            }
+        }
+    
+    });
+    
+    sketchSlider.addEventListener('input', e => {
+        
+        let v = parseFloat(sketchSlider.value);
+        
+        rough = v < 5 ? v / 5 : v - 4;
+        
+        if(!isAnimating){
+            cancelAnimationFrame(animate);
+            requestAnimationFrame(animate);//animate();
+        }
+    });
+    // }
+ 
     // animation loop {
     let loop;
     
@@ -748,6 +753,7 @@ M90.1 14.1L97.2 15.4L97.7 14.6L90.6 12.8L90.1 14.1Z
     let curArticle = 0;
     
     const changeArticle = e => {
+        //window.getSelection().removeAllRanges();
         curArticle = (curArticle + 1) % articleList.length;
         if (!isAnimating) { animate() }
     };
