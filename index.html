@@ -145,12 +145,14 @@ input[type=range]:focus {
     curColor = 214,
     fps = 15,
     rough = 0.75,
+    max = 10,
     isAnimating = true;
         
     //}
     
     // vars {
     let loop = null;
+    const max2 = max/2;
     const ts = document.getElementById('tshirt');
     const rTshirt = sketch.svg(ts);
     const colorSlider = document.getElementById('colorSlider');
@@ -751,12 +753,8 @@ M26.1 12.2L11.4 15.9L25.1 14Z
     
     const articleList = [drawHooded, drawTshirt, drawDshirt, drawJacket];
     
-    let
-    n  = parseInt(sketchSlider.max),
-    n2 = n/2;
-    
-    const adjustSketch = v => v < n2 ? v / n2 :
-        1 + (((v - n2) / n2) * (n -1))
+    const adjustSketch = v => v < max2 ? v / max2 :
+        1 + (((v - max2) / max2) * (max - 1))
     
     const changeArticle = e => {
         window.getSelection().removeAllRanges();
@@ -764,11 +762,7 @@ M26.1 12.2L11.4 15.9L25.1 14Z
         if (!isAnimating) { animate() }
     };
     
-    const tSVG = document.getElementById('tSVG');
-    tSVG.addEventListener('click', changeArticle);
-    
-    const moreDiv = document.getElementById('moreDiv');
-    moreDiv.addEventListener('click', changeArticle);
+    `tSVG|moreDiv`.split('|').forEach(div => document.getElementById(div).addEventListener('click', changeArticle));
     
     //}
     
@@ -784,8 +778,9 @@ M26.1 12.2L11.4 15.9L25.1 14Z
         
         speedSlider.value = fps;
         
-        sketchSlider.value = rough < 1 ? rough * n2 :
-        n2 + (((rough - 1) / (n - 1)) * n2)
+        sketchSlider.max = max;
+        sketchSlider.value = rough < 1 ? rough * max2 :
+        max2 + (((rough - 1) / (max - 1)) * max2)
         
         window.requestAnimationFrame(animate);
         
