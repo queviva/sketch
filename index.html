@@ -96,7 +96,7 @@ input[type=range]:focus {
   <div><input id="colorSlider" value="240" min="0" max="360" type="range"></div>
   <div><input id="speedSlider" value="17" min="0" max="20" step="1" type="range"></div>
   <div>
-   <input id="sketchSlider" value="3.75" min="0" max="10" step="0.01" type="range">
+   <input id="sketchSlider" value="3.75" min="0" max="8" step="any" type="range">
   </div>
   <br>
   <hr>
@@ -144,14 +144,13 @@ input[type=range]:focus {
     curArticle = 0,
     curColor = 214,
     fps = 15,
-    sketchiness = 3.75,
+    rough = 0.75,
     isAnimating = true;
         
     //}
     
     // vars {
     let loop = null;
-    let rough = 1;
     const ts = document.getElementById('tshirt');
     const rTshirt = sketch.svg(ts);
     const colorSlider = document.getElementById('colorSlider');
@@ -515,7 +514,7 @@ L122 42L127.9 41.7L137.7 26L135.4 28.9L126.5 40.1L123.9 41.2L122 42L125.8 39.6L1
             fillStyle: 'solid',
             stroke: rough === 0 ? 'none' : 'rgba(0,0,0,0.3)',
             strokeWidth: 0.2,
-            roughness: 1 * rough
+            roughness: rough < 1.5 ? 1 * rough : 1.5
             
         };
         
@@ -640,7 +639,7 @@ M34.3 52.1L30.9 26.9L30.4 12.9 C 35.3 11.3 44.1 10.1 51.6 10.9L34.3 52.1Z
             fillStyle: 'solid',
             stroke: rough === 0 ? 'none' : 'rgba(0,0,0,0.3)',
             strokeWidth: 0.2,
-            roughness: 1 * rough,
+            roughness: rough < 1.5 ? 1 * rough : 1.5
         };
         
         ggg.appendChild(rTshirt.path(buttNeck, opts));
@@ -752,7 +751,12 @@ M26.1 12.2L11.4 15.9L25.1 14Z
     
     const articleList = [drawHooded, drawTshirt, drawDshirt, drawJacket];
     
-    const adjustSketch = v => v < 5 ? v / 5 : v - 4
+    let
+    n  = parseInt(sketchSlider.max),
+    n2 = n/2;
+    
+    const adjustSketch = v => v < n2 ? v / n2 :
+        1 + (((v - n2) / n2) * (n -1))
     
     const changeArticle = e => {
         window.getSelection().removeAllRanges();
@@ -780,9 +784,9 @@ M26.1 12.2L11.4 15.9L25.1 14Z
         
         speedSlider.value = fps;
         
-        sketchSlider.value = sketchiness;
-        rough = adjustSketch(sketchiness);
-    
+        sketchSlider.value = rough < 1 ? rough * n2 :
+        n2 + (((rough - 1) / (n - 1)) * n2)
+        
         window.requestAnimationFrame(animate);
         
     }
@@ -793,6 +797,6 @@ M26.1 12.2L11.4 15.9L25.1 14Z
     
 })();
 
-  </script>
+</script>
 
 </html>
