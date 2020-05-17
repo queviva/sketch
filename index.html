@@ -1,4 +1,5 @@
-<!doctype html><html>
+<!doctype html>
+<html>
 
 <head>
   <title>sketches</title>
@@ -21,13 +22,14 @@
         --jacketoutline: hsla(calc(var(--tco)),30%,77%,1.0);
         --jacketcolor: hsla(calc(var(--tco)),30%,20%,1.0);
         --jacketstroke: hsla(calc(var(--tco)),30%,07%,0.9);
-        --thumbH: 20px;
+        --thumbH: 40px;
     }
     
     body {
         font-family: 'Luckiest Guy';
         font-size: 30px;
         color: #666;
+        overflow: auto;
     }
     
     #holder {
@@ -91,7 +93,8 @@ input[type=range]:focus {
 
 <body>
  <div id="holder">
-  <div id="moreDiv"> click for More </div>
+  <!--div id="moreDiv"> click for More </div-->
+  <object id="svg-object" data="pill.svg" type="image/svg+xml"></object>
   <svg id="tSVG"><g id="tshirt" transform="scale(2.5)"></g></svg>
   <br>
   <div><input id="colorSlider" value="240" min="0" max="360" type="range"></div>
@@ -99,7 +102,7 @@ input[type=range]:focus {
   <div>
    <input id="sketchSlider" value="3.75" min="0" max="8" step="any" type="range">
   </div>
-  <br>
+  <!--br>
   <hr>
   <div> what is this? </div>
   <br>
@@ -128,7 +131,7 @@ input[type=range]:focus {
       </p>
    </div>
   </div>
-  <br>
+  <br-->
  </div>
 </body>
 
@@ -139,6 +142,7 @@ input[type=range]:focus {
 //new
 (function () {
     
+
     // prefs {
     let
     
@@ -764,7 +768,8 @@ M26.1 12.2L11.4 15.9L25.1 14Z
         if (!isAnimating) { animate() }
     };
     
-    `tSVG|moreDiv`.split('|').forEach(div => document.getElementById(div).addEventListener('click', changeArticle));
+    //`tSVG|moreDiv`.split('|').forEach(div => document.getElementById(div).addEventListener('click', changeArticle));
+    window.addEventListener('keypress', changeArticle);
     
     //}
     
