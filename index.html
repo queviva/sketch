@@ -768,8 +768,10 @@ M26.1 12.2L11.4 15.9L25.1 14Z
         if (!isAnimating) { animate() }
     };
     
-    //`tSVG|moreDiv`.split('|').forEach(div => document.getElementById(div).addEventListener('click', changeArticle));
     window.addEventListener('keypress', changeArticle);
+    
+    document.getElementById('tSVG')
+        .addEventListener('click', changeArticle);
     
     //}
     
