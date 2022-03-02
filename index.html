@@ -1,66 +1,261 @@
-<!doctype html>
-<html>
+<!doctype html><html>
 
-<head>
-  <title>sketches</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link id="luckiestFont" href="https://fonts.googleapis.com/css?family=Luckiest+Guy" rel="stylesheet">
-  <script src="sketch.js"></script>
-  <style id="sketchStyles">
-  
-    :root {
-        --tco: 240;
-        --tshirtoutline: hsla(var(--tco),70%,80%,1.0);
-        --tshirtcolor: hsla(var(--tco),60%,45%,1.0);
-        --tshirtstroke: hsla(var(--tco),55%,30%,0.8);
-        --hoodedoutline: hsla(var(--tco),100%,80%,1.0);
-        --hoodedcolor: hsla(var(--tco),100%,50%,1.0);
-        --hoodedstroke: hsla(var(--tco),80%,30%,0.8);
-        --dshirtoutline: hsla(calc(var(--tco)),60%,74%,1.0);
-        --dshirtcolor: hsla(calc(var(--tco)),45%,34%,1.0);
-        --dshirtstroke: hsla(calc(var(--tco)),35%,20%,0.9);
-        --jacketoutline: hsla(calc(var(--tco)),30%,77%,1.0);
-        --jacketcolor: hsla(calc(var(--tco)),30%,20%,1.0);
-        --jacketstroke: hsla(calc(var(--tco)),30%,07%,0.9);
-        --thumbH: 40px;
+<head><title>sketches</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style id="demoStyles">
+
+@font-face {
+    font-family : luckiest;
+    src : url(luckiest.ttf);
+}
+
+:root {
+    
+    --circ-h: 40;
+    --circ-s: 100%;
+    --circ-l: 50%;
+    --circ-a: 1;
+    
+    --lightness: hsl(
+        var(--circ-h),
+        var(--circ-s),
+        var(--circ-l)
+    );
+    
+    --midness: hsl(
+        var(--circ-h),
+        calc(0.5 * var(--circ-s)),
+        calc(0.7 * var(--circ-l))
+    );
+    
+    --darkness: hsl(
+        var(--circ-h),
+        var(--circ-s),
+        calc(0.35 * var(--circ-l))
+    );
+    
+    --blackness: hsl(
+        var(--circ-h),
+        var(--circ-s),
+        calc(0.20 * var(--circ-l))
+    );
+                
+    --main-color: var(--lightness);
+    --greyed-out: var(--darkness);
+    --back-color: #111;
+    --holder-back: #eee;
+    --faded-txt: hsla(
+        var(--circ-h),
+        var(--circ-s),
+        var(--midness),
+        0.5
+    );
+    
+    --tco: 240;
+    --tshirtoutline: hsla(var(--tco),70%,80%,1.0);
+    --tshirtcolor: hsla(var(--tco),60%,45%,1.0);
+    --tshirtstroke: hsla(var(--tco),55%,30%,0.8);
+    --hoodedoutline: hsla(var(--tco),100%,80%,1.0);
+    --hoodedcolor: hsla(var(--tco),100%,50%,1.0);
+    --hoodedstroke: hsla(var(--tco),80%,30%,0.8);
+    --dshirtoutline: hsla(calc(var(--tco)),60%,74%,1.0);
+    --dshirtcolor: hsla(calc(var(--tco)),45%,34%,1.0);
+    --dshirtstroke: hsla(calc(var(--tco)),35%,20%,0.9);
+    --jacketoutline: hsla(calc(var(--tco)),30%,77%,1.0);
+    --jacketcolor: hsla(calc(var(--tco)),30%,20%,1.0);
+    --jacketstroke: hsla(calc(var(--tco)),30%,07%,0.9);
+    --thumbH: 40px;
+    
+}
+
+* {
+    box-sizing: border-box;
+    word-wrap: break-word;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    background-color: var(--back-color);
+    font-size: 22px;
+    text-align: justify;
+    hyphens: auto;
+}
+
+.holder {
+    
+    --nose-hsla: hsla(39, 100%, 30%, 0);
+    
+    --key: hsla(
+        var(--nose-h),
+        var(--nose-s),
+        var(--nose-l),
+        var(--nose-l)
+    );
+    
+    --fill: hsla(
+        var(--nose-h),
+        0%,
+        0%,
+        calc(var(--nose-l))
+    );
+    
+    --back: hsla(
+        calc(-60 + var(--nose-h)),
+        50%,
+        50%,
+        var(--nose-l)
+    );
+    
+    --shadow: hsla(
+        0,0%,0%,var(--nose-l)
+    )
+    
+    --shade: hsla(0, 0%, 0%, 0.35);
+    /* !!!MUST have spaces between -'s !!!
+    calc((var(--nose-l) - 30%)/(.8 - .3)) */
+    --shade-op : calc((var(--nose-l) - 10%) * 2.5);
+    
+    --ground-color: #000;
+    --floor-opacity: calc((var(--nose-l) - 30%) * 2);
+    
+	position: relative;
+    color: var(--main-color);
+    background-color: var(--holder-back);
+    margin: auto;
+    width: 100%;
+    max-width: 700px;
+    
+}
+
+a, a:hover, a:visited {
+    text-decoration: none;
+    color: var(--darkness);
+}
+
+.qa > div > a, .qa > div > a:hover, .qa > div > a:visited,
+.qb > div > a, .qb > div > a:hover, .qb > div > a:visited
+{
+    color: var(--lightness);
+}
+
+pre {
+    background-color: var(--back-color);
+    margin: 0px;
+    padding: 10px;
+    color: var(--blackness);
+    overflow: auto;
+}
+
+hr {
+    border-top: 1px solid var(--blackness);
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    margin: 7px 0px 7px 0px;
+}
+
+b {
+    color: var(--darkness);
+}
+
+.qr {
+    padding: 10px;
+}
+
+.qa, .qb {
+    color: var(--midness);
+}
+
+.qa:after, .qb:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.qa > div, .qb > div {
+    float: left;
+    padding: 10px;
+    height: auto;
+}
+
+.qa > div:nth-child(1),
+.qb > div:nth-child(2) {
+  width: 65%;
+}
+
+.qa > div:nth-child(2),
+.qb > div:nth-child(1) {
+  width: 35%;
+}
+
+.qa > div > b,
+.qb > div > b {
+    color: var(--lightness);
+}
+
+.mobr {
+    display: none;
+}
+
+.hobr {
+    display: inline-block;
+}
+
+.abhr {
+    display: none;
+}
+
+/*possibly a portrait mobi-fone*/
+@media screen and (max-width:500px) {
+
+	.qa > div:nth-child(1),
+	.qa > div:nth-child(2),
+	.qb > div:nth-child(1),
+	.qb > div:nth-child(2)
+	{
+    	width: 100%;
     }
     
-    body {
-        font-family: 'Luckiest Guy';
-        font-size: 30px;
-        color: #666;
-        overflow: auto;
+    .mobr {
+        display: inline-block;
     }
-    
-    #holder {
-       margin: auto;
-       padding: 10px;
-       min-width: 400px;
+    .hobr {
+        display: none;
     }
-    
-    svg {
-        margin: auto;
+    .abhr {
         display: block;
-        width: 312px;
-        height: 312px;
-        overflow: visible;
     }
-    
-    img {
-        margin: auto;
-        display: block;
-        width: 312px;
+    ul {
+        text-align: left;
     }
+
+}
+
+/*possibly a mobile landscraper*/
+@media screen and (orientation: landscape) and (max-width: 760px) {
     
-    div {
-        text-align: center;
-        padding: 3px;
-    }
+}
+
+.signature {
+    text-align: right;
+    font-family: 'luckiest';
+    font-style: italic;
+    height: 200px;
+    color: var(--tshirtcolor);
+    user-select:none;
+}
+
+</style>
+<style id="sketchStyles">
     
-    hr {
-        width: 400px;
-    }
-    
+svg {
+    margin: auto;
+    display: block;
+    width: 300px;
+    height: 300px;
+    overflow: visible;
+}
     
 input[type=range] {
     -webkit-appearance: none;
@@ -70,7 +265,7 @@ input[type=range] {
     height: var(--thumbH);
     width: 300px;
     border-radius: calc(var(--thumbH) / 2);
-    background-color: #666;
+    background-color: var(--dshirtcolor);
 }
 
 input[type=range]::-webkit-slider-thumb {
@@ -79,7 +274,7 @@ input[type=range]::-webkit-slider-thumb {
     height: calc(var(--thumbH));
     margin-bottom: 0px;
     width: var(--thumbH);
-    border: 3px solid #333;
+    border: 3px solid var(--dshirtstroke);
     border-radius: calc(var(--thumbH) / 2);
     background-color: #ddd;
 }
@@ -87,59 +282,56 @@ input[type=range]::-webkit-slider-thumb {
 input[type=range]:focus {
     outline: none;
 }
+
+/*possibly a mobile landscraper*/
+@media screen and (orientation: landscape) and (max-width: 760px) {
     
-  </style>
+        #tSVG {
+            height: 200px;
+            width: 200px;
+        }
+        
+        #sliderz {
+            --thumbH: 30px;
+        }
+        
+        input[type=range] {
+            width: 200px;
+        }
+}
+</style>
+<script src="sketch.js"></script>
 </head>
 
 <body>
- <div id="holder">
-  <!--div id="moreDiv"> click for More </div-->
-  <!--object id="svg-object" data="pill.svg" type="image/svg+xml"></object-->
-  <svg id="tSVG"><g id="tshirt" transform="scale(2.5)"></g></svg>
-  <br>
-  <div><input id="colorSlider" value="240" min="0" max="360" type="range"></div>
-  <div><input id="speedSlider" value="17" min="0" max="20" step="1" type="range"></div>
-  <div>
-   <input id="sketchSlider" value="3.75" min="0" max="8" step="any" type="range">
-  </div>
-  <!--br>
-  <hr>
-  <div> what is this? </div>
-  <br>
-  <img src="pill.svg">
-  <br>
-  <div>
-    <div style="
-     margin:auto;
-     width:400px;
-     color:#666;
-     text-align:justify;
-     hyphens:auto;
-     font-size:16px;
-     font-family: 'Courier New';
+ <div class="holder">
+  <div grafikT class="qr">
+    <svg id="tSVG" viewBox="0 0 312 312">
+      <g id="tshirt" transform="scale(2.5)"></g>
+    </svg>
+    <center id="click4more" style="
+        font-size:0.7em;
+        font-style: italic;
+        color: var(--blackness);
+        transition:opacity linear 1s;
     ">
-    the sketches needed to convey
-    what an article of clothing is,
-    or what it requires for construction,
-    can be incredibly gestural
-      <p>
-    these are examples of a style of design
-    presentation that can be intensely vivid
-    and precise, or have its sketchiness increased
-    as much as desired, or literally redraw itself
-    in a constant animation
-      </p>
-   </div>
+        click for more
+    </center>
   </div>
-  <br-->
+  
+  <div id="sliderz" class="qr" style="
+    text-align:center;
+  ">
+    <div><input id="colorSlider" value="240" min="0" max="360" type="range"></div>
+    <div><input id="speedSlider" value="17" min="0" max="20" step="1" type="range"></div>
+    <div><input id="sketchSlider" value="3.75" min="0" max="8" step="any" type="range"></div>
+  </div>
+
+  <hr><div class="qr signature">~queviva</div>
  </div>
 </body>
 
 <script>
-  
-// pizzaface - avril MMXX
-
-//new
 (function () {
     
 
@@ -772,6 +964,13 @@ M26.1 12.2L11.4 15.9L25.1 14Z
     
     document.getElementById('tSVG')
         .addEventListener('click', changeArticle);
+    let clickcount = 0;
+    document.getElementById('tSVG')
+        .addEventListener('click', ()=>{
+            document.getElementById('click4more')
+            .style.opacity=(++clickcount)%4===0?
+            '1':'0';
+        });
     
     //}
     
