@@ -252,7 +252,6 @@ b {
 svg {
     margin: auto;
     display: block;
-    width: 300px;
     height: 300px;
     overflow: visible;
 }
@@ -283,52 +282,69 @@ input[type=range]:focus {
     outline: none;
 }
 
+#sketch:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
 /*possibly a mobile landscraper*/
-@media screen and (orientation: landscape) and (max-width: 760px) {
+@media only screen and (orientation: landscape) and (max-width: 760px) {
     
         #tSVG {
-            height: 200px;
-            width: 200px;
+            width: 100%;
+        }
+        
+        #migHolder {
+            float: left;
+            width: 35%;
+            position: relative;
+            z-index:100;
         }
         
         #sliderz {
-            --thumbH: 30px;
+            float: left;
+            width: 65%;
+            position: relative;
+            margin-top: 50px;
+            --thumbH: 50px;
         }
         
         input[type=range] {
-            width: 200px;
+            width: 300px;
         }
+        
 }
 </style>
 <script src="sketch.js"></script>
 </head>
 
 <body>
- <div class="holder">
-  <div grafikT class="qr">
-    <svg id="tSVG" viewBox="0 0 312 312">
-      <g id="tshirt" transform="scale(2.5)"></g>
-    </svg>
-    <center id="click4more" style="
-        font-size:0.7em;
-        font-style: italic;
-        color: var(--blackness);
-        transition:opacity linear 1s;
-    ">
-        click for more
-    </center>
-  </div>
+  <div class="holder">
+    <div class="qr" id="sketch">
+      <div id="migHolder">
+        <svg id="tSVG" viewBox="0 0 312 312">
+          <g id="tshirt" transform="scale(2.5)"></g>
+        </svg>
+        <center id="click4more" style="
+            font-size:0.7em;
+            font-style: italic;
+            color: var(--blackness);
+            transition:opacity linear 1s;
+        ">click for more</center>
+      </div>
   
-  <div id="sliderz" class="qr" style="
-    text-align:center;
-  ">
-    <div><input id="colorSlider" value="240" min="0" max="360" type="range"></div>
-    <div><input id="speedSlider" value="17" min="0" max="20" step="1" type="range"></div>
-    <div><input id="sketchSlider" value="3.75" min="0" max="8" step="any" type="range"></div>
-  </div>
-
+      <div id="sliderz" class="qr" style="
+        text-align:center;
+      ">
+        <div><input id="colorSlider" value="240" min="0" max="360" type="range"></div>
+        <div><input id="speedSlider" value="17" min="0" max="20" step="1" type="range"></div>
+        <div><input id="sketchSlider" value="3.75" min="0" max="8" step="any" type="range"></div>
+      </div>
+    </div>
   <hr><div class="qr signature">~queviva</div>
- </div>
+ 
+  </div>
 </body>
 
 <script>
