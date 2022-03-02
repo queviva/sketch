@@ -329,7 +329,7 @@ input[type=range]:focus {
         <center id="click4more" style="
             font-size:0.7em;
             font-style: italic;
-            color: var(--blackness);
+            color: var(--tshirtcolor);
             transition:opacity linear 1s;
         ">click for more</center>
       </div>
@@ -984,7 +984,8 @@ M26.1 12.2L11.4 15.9L25.1 14Z
     document.getElementById('tSVG')
         .addEventListener('click', ()=>{
             document.getElementById('click4more')
-            .style.opacity=(++clickcount)%4===0?
+            .style.opacity=
+            (++clickcount)%4===0 && clickcount< 13?
             '1':'0';
         });
     
